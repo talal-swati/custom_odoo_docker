@@ -79,6 +79,7 @@ COPY wait-for-psql.py /usr/local/bin/wait-for-psql.py
 RUN pip3 install -r /etc/odoo/bsp_req.txt
 RUN pip3 install git+https://github.com/aeroo/aeroolib.git
 RUN pip3 install git+https://github.com/aeroo/currency2text.git
+RUN sudo npm install -g less@3.0.4 less-plugin-clean-css
 # Set default user when running the container
 USER odoo
 
