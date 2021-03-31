@@ -64,6 +64,8 @@ COPY ./bsp_req.txt /etc/odoo/
 RUN chown odoo /etc/odoo/odoo.conf \
     && mkdir -p /mnt/extra-addons \
     && chown -R odoo /mnt/extra-addons \
+    && mkdir -p /mnt/extra-addons/bsp_addons \
+    && chown -R odoo /mnt/extra-addons/bsp_addons \
     && chown -R odoo /etc/odoo 
 VOLUME ["/var/lib/odoo", "/mnt/extra-addons","/etc/odoo"]
 
