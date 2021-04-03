@@ -49,10 +49,10 @@ RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash - \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Odoo
-COPY ./odoo12.deb /opt/
+COPY ./odoo_12.0.latest_all.deb /opt/
 RUN apt-get update \
-        && apt-get -y install --no-install-recommends /opt/odoo12.deb \
-        && rm -rf /var/lib/apt/lists/* odoo12.deb
+        && apt-get -y install --no-install-recommends /opt/odoo_12.0.latest_all.deb \
+        && rm -rf /var/lib/apt/lists/* odoo_12.0.latest_all.deb
 
 
 # Copy entrypoint script and Odoo configuration file
