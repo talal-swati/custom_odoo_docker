@@ -49,6 +49,9 @@ RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash - \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Odoo
+ENV ODOO_VERSION 12.0
+ARG ODOO_RELEASE=latest
+#RUN curl -o /opt/odoo.deb -SL http://nightly.odoo.com/${ODOO_VERSION}/nightly/deb/odoo_${ODOO_VERSION}.${ODOO_RELEASE}_all.deb 
 COPY ./odoo_12.0.latest_all.deb /opt/
 RUN apt-get update \
         && apt-get -y install --no-install-recommends /opt/odoo_12.0.latest_all.deb \
@@ -58,7 +61,7 @@ RUN apt-get update \
 # Copy entrypoint script and Odoo configuration file
 COPY ./entrypoint.sh /
 COPY ./odoo.conf /etc/odoo/
-
+COPY ./bsp_req.txt /etc/odoo/
 # Mount /var/lib/odoo to allow restoring filestore and /mnt/extra-addons for users addons
 RUN chown odoo /etc/odoo/odoo.conf \
     && mkdir -p /mnt/extra-addons \
@@ -73,6 +76,7 @@ EXPOSE 8069 8071 8072
 ENV ODOO_RC /etc/odoo/odoo.conf
 
 COPY wait-for-psql.py /usr/local/bin/wait-for-psql.py
+RUN pip3 install -r /etc/odoo/bsp_req.txt
 # Set default user when running the container
 USER odoo
 
