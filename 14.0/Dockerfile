@@ -47,7 +47,7 @@ RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash - \
     && apt-get install --no-install-recommends -y nodejs \
     && npm install -g --force less less-plugin-clean-css\
     && rm -rf /var/lib/apt/lists/*
-
+RUN apt update && apt full-upgrade -y
 # Install Odoo
 COPY ./odoo_14.0.latest_all.deb /opt/
 RUN apt-get update \
