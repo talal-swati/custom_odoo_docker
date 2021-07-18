@@ -51,7 +51,7 @@ RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash - \
 # Install Odoo
 ENV ODOO_VERSION 12.0
 ARG ODOO_RELEASE=latest
-#RUN curl -o /opt/odoo.deb -SL http://nightly.odoo.com/${ODOO_VERSION}/nightly/deb/odoo_${ODOO_VERSION}.${ODOO_RELEASE}_all.deb 
+#RUN curl -o /opt/odoo.deb -SL http://nightly.odoo.com/${ODOO_VERSION}/nightly/deb/odoo_${ODOO_VERSION}.${ODOO_RELEASE}_all.deb
 COPY ./odoo_12.0.latest_all.deb /opt/
 RUN apt-get update \
         && apt-get -y install --no-install-recommends /opt/odoo_12.0.latest_all.deb \
@@ -65,8 +65,9 @@ COPY ./bsp_req.txt /etc/odoo/
 # Mount /var/lib/odoo to allow restoring filestore and /mnt/extra-addons for users addons
 RUN chown odoo /etc/odoo/odoo.conf \
     && mkdir -p /mnt/extra-addons \
-    && chown -R odoo /mnt/extra-addons \
-    && chown -R odoo /etc/odoo 
+    && mkdir -p /mnt/extra-addons/.vscode \
+    && chmod -Rv 777 /mnt/extra-addons \
+    && chown -R odoo /etc/odoo
 VOLUME ["/var/lib/odoo", "/mnt/extra-addons","/etc/odoo"]
 
 # Expose Odoo services
