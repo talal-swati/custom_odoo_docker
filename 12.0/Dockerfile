@@ -83,4 +83,4 @@ RUN pip3 install debugpy
 USER odoo
 
 ENTRYPOINT ["/entrypoint.sh"]
-CMD ["python3 -m debugpy --listen 8888 odoo"]
+CMD ["odoo"]
