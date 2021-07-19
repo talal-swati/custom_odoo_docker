@@ -71,7 +71,7 @@ RUN chown odoo /etc/odoo/odoo.conf \
 VOLUME ["/var/lib/odoo", "/mnt/extra-addons","/etc/odoo"]
 
 # Expose Odoo services
-EXPOSE 8069 8071 8072
+EXPOSE 8069 8071 8072 8888
 
 # Set the default config file
 ENV ODOO_RC /etc/odoo/odoo.conf
@@ -79,7 +79,8 @@ ENV ODOO_RC /etc/odoo/odoo.conf
 COPY wait-for-psql.py /usr/local/bin/wait-for-psql.py
 RUN pip3 install -r /etc/odoo/bsp_req.txt
 # Set default user when running the container
+RUN pip3 install debugpy
 USER odoo
 
 ENTRYPOINT ["/entrypoint.sh"]
-CMD ["odoo"]
+CMD ["python3 -m debugpy --listen 8888 odoo"]
